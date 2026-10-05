@@ -1,0 +1,19 @@
+// main.h
+// Josh Brake
+// jbrake@hmc.edu
+// 10/31/22
+
+#ifndef MAIN_H
+#define MAIN_H
+
+#include "STM32L432KC.h"
+#include <stm32l432xx.h>
+
+///////////////////////////////////////////////////////////////////////////////
+// Custom defines
+///////////////////////////////////////////////////////////////////////////////
+
+#define LOW_SPEED_COUNT_THRESHOLD 10
+#define STOP_TIMEOUT_MS 2000
+
+#endif // MAIN_H
