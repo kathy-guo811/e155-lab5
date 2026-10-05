@@ -1,6 +1,7 @@
 #ifndef ENCODER_H
 #define ENCODER_H
 
+#include <stdint.h>
 
 #define EXTI6 8
 #define EXTI9 4
@@ -13,5 +14,6 @@ void initEncoder(void);
 int getEncoderCount(void);
 uint32_t getEncoderPeriod(void);
 uint32_t getLastEdgeTime(void);
+int getEncoderDirection(void);
 
 #endif // ENCODER_H
