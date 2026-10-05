@@ -136,6 +136,7 @@ void EXTI9_5_IRQHandler(void) {
 
     previous_state = current_state;
 
+    // for low-velocity detection and calculation
     if (valid_transition) {
         uint32_t current_edge_time = getTime(TIM2);
         encoder_period = current_edge_time - last_edge_time;

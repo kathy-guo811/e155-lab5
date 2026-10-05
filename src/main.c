@@ -6,9 +6,11 @@
 
 // Necessary includes for printf to work
 #include <stdio.h>
+#include <stdint.h>
 #include "stm32l432xx.h"
 #include "main.h"
 #include "encoder.h"
+
 
 // Function used by printf to send characters to the laptop
 int _write(int file, char *ptr, int len) {
@@ -19,11 +21,12 @@ int _write(int file, char *ptr, int len) {
   return len;
 }
 
-
-
 int main(void) {
+
     configureClock(); // Set clock to 80 MHz
     initEncoder(); // Initialize encoder inputs and interrupts
+
+    //printf("test");
 
     int previous_count = getEncoderCount(); // Initialize previous count
     uint32_t previous_time = getTime(TIM2); // Initialize previous time
@@ -32,7 +35,7 @@ int main(void) {
         uint32_t current_time = getTime(TIM2); // Read current time from TIM2
         uint32_t time_change = current_time - previous_time; // Calculate change in time
     
-        if (time_change >= 1000) {
+        if (time_change >= 1000) { // 1hz readouts
             int current_count = getEncoderCount(); // Read current encoder count
             int count_change = current_count - previous_count; // Calculate change in count
             
@@ -41,6 +44,7 @@ int main(void) {
 
             float velocity = 0.0f; // Initialize velocity
             
+
             // case 1: see if motor is spinning at all
             if (time_since_edge >= STOP_TIMEOUT_MS) {
                 velocity = 0.0f;
@@ -57,12 +61,10 @@ int main(void) {
                     velocity = 1.0f / ((float)encoder_period / 1000.0f * COUNTS_PER_REV); // Calculate velocity in rev/sec
 
                     if (encoder_direction > 0) {
-                        printf("Direction: CCW, Velocity: %f rev/sec\n",
-                               velocity);
+                        printf("Direction: CCW, Velocity: %f rev/sec\n", velocity);
                     }
                     else if (encoder_direction < 0) {
-                        printf("Direction: CW, Velocity: %f rev/sec\n",
-                               velocity);
+                        printf("Direction: CW, Velocity: %f rev/sec\n", velocity);
                     }
                 } 
                 else {
@@ -88,5 +90,7 @@ int main(void) {
 
         }
     }
+
+    return 0;
 
 }
