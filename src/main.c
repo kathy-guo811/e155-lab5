@@ -11,7 +11,6 @@
 #include "main.h"
 #include "encoder.h"
 
-
 // Function used by printf to send characters to the laptop
 int _write(int file, char *ptr, int len) {
   int i = 0;
@@ -25,8 +24,6 @@ int main(void) {
 
     configureClock(); // Set clock to 80 MHz
     initEncoder(); // Initialize encoder inputs and interrupts
-
-    //printf("test");
 
     int previous_count = getEncoderCount(); // Initialize previous count
     uint32_t previous_time = getTime(TIM2); // Initialize previous time

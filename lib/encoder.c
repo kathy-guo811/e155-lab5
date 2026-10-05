@@ -13,8 +13,6 @@ volatile uint32_t last_edge_time = 0;
 volatile int encoder_direction = 0;
 int valid_transition = 0; // default to 0, set to 1 if a valid quadrature transition occurs
 
-
-
 int getEncoderCount(void) {
     return encoder_count;
 }
