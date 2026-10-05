@@ -2,13 +2,14 @@
 // Source code for RCC functions
 
 #include "STM32L432KC_RCC.h"
+#include "STM32L432KC_FLASH.h"
 
 void configurePLL() {
    // Set clock to 80 MHz
-   // Output freq = (src_clk) * (N/M) / P
+   // Output freq = (src_clk) * (N/M) / R
    // (4 MHz) * (80/2) * 2  = 80 MHz
-   // M:, N:, P:
-   // Use HSI as PLLSRC
+   // M:, N:, R:
+   // Use MSI as PLLSRC
 
    RCC->CR &= ~_FLD2VAL(RCC_CR_PLLON, RCC->CR); // Turn off PLL
    while (_FLD2VAL(RCC_CR_PLLRDY, 1) != 0); // Wait till PLL is unlocked (e.g., off)
@@ -26,6 +27,8 @@ void configurePLL() {
 }
 
 void configureClock(){
+
+  configureFlash(); // configure flash latency for 80 MHz
   // Configure and turn on PLL
   configurePLL();
 
