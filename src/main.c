@@ -58,7 +58,7 @@ int main(void) {
                 int encoder_direction = getEncoderDirection(); // get encoder direction
 
                 if (encoder_period > 0) {
-                    velocity = 1.0f / ((float)encoder_period / 10000.0f * COUNTS_PER_REV); // Calculate velocity in rev/sec
+\ // Calculate velocity in rev/sec
 
                     if (encoder_direction > 0) {
                         printf("Direction: CCW, Velocity: %f rev/sec\n", velocity);
