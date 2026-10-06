@@ -16,4 +16,5 @@ uint32_t getEncoderPeriod(void);
 uint32_t getLastEdgeTime(void);
 int getEncoderDirection(void);
 
+
 #endif // ENCODER_H
