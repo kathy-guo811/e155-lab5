@@ -24,6 +24,8 @@ int _write(int file, char *ptr, int len) {
 int main(void) {
 
     configureClock(); // Set clock to 80 MHz
+    // printf("SystemCoreClock = %d Hz\n", SystemCoreClock);
+
     initEncoder(); // Initialize encoder inputs and interrupts
 
     int previous_count = getEncoderCount(); // Initialize previous count
