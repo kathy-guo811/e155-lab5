@@ -70,8 +70,7 @@ void initEncoder(void) {
 }
 
 void EXTI9_5_IRQHandler(void) {
-    // Save which encoder interrupt(s) caused this ISR
-    uint32_t pending = EXTI->PR1 & ((1 << 6) | (1 << 9));
+
     int A = digitalRead(PA6);
     int B = digitalRead(PA9);
     int current_state = (A << 1) | B;
@@ -146,4 +145,5 @@ void EXTI9_5_IRQHandler(void) {
         valid_transition = 0; // Reset valid transition flag
     }
 }
+
 
