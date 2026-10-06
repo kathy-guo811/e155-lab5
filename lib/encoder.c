@@ -11,7 +11,6 @@ volatile int previous_state;
 volatile uint32_t encoder_period = 0;
 volatile uint32_t last_edge_time = 0;
 volatile int encoder_direction = 0;
-int valid_transition = 0; // default to 0, set to 1 if a valid quadrature transition occurs
 
 int getEncoderCount(void) {
     return encoder_count;
@@ -71,6 +70,12 @@ void initEncoder(void) {
 }
 
 void EXTI9_5_IRQHandler(void) {
+    // Save which encoder interrupt(s) caused this ISR
+    uint32_t pending = EXTI->PR1 & ((1 << 6) | (1 << 9));
+    int A = digitalRead(PA6);
+    int B = digitalRead(PA9);
+    int current_state = (A << 1) | B;
+
     if (EXTI->PR1 & (1 << 6)) {
         EXTI->PR1 = (1 << 6);
     }
@@ -79,9 +84,7 @@ void EXTI9_5_IRQHandler(void) {
         EXTI->PR1 = (1 << 9);
     }
 
-    int A = digitalRead(PA6);
-    int B = digitalRead(PA9);
-    int current_state = (A << 1) | B;
+    int valid_transition = 0; // default to 0, set to 1 if a valid quadrature transition occurs
 
     if (previous_state == 0b00) {
         if (current_state == 0b01) {
