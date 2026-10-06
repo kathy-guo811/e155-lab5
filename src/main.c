@@ -2,7 +2,7 @@
 // Kathy Guo
 // kaguo@g.hmc.edu
 // 10/4/2026
-// Implements interrupts to determin the speed of a motor by reading from a quadrature encoder.
+// Calculates the speed of a motor by reading from a quadrature encoder.
 
 // Necessary includes for printf to work
 #include <stdio.h>
