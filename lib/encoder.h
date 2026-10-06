@@ -1,3 +1,9 @@
+// encoder.h
+// Kathy Guo
+// kaguo@g.hmc.edu
+// 10/4/2026
+// Header for encoder functions
+
 #ifndef ENCODER_H
 #define ENCODER_H
 

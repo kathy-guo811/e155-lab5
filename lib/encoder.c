@@ -1,3 +1,9 @@
+// encoder.c
+// Kathy Guo
+// kaguo@g.hmc.edu
+// 10/4/2026
+// Implements interrupts to determine the speed of a motor by reading from a quadrature encoder.
+
 #include "encoder.h"
 #include "STM32L432KC_GPIO.h"
 #include "STM32L432KC_TIM.h"
