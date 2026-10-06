@@ -11,7 +11,7 @@
 // Function prototypes
 ///////////////////////////////////////////////////////////////////////////////
 
-void configurePLL(void);
-void configureClock(void);
+void configurePLL();
+void configureClock();
 
 #endif
