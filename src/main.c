@@ -11,6 +11,7 @@
 #include "main.h"
 #include "encoder.h"
 
+
 // Function used by printf to send characters to the laptop
 int _write(int file, char *ptr, int len) {
   int i = 0;
@@ -89,5 +90,71 @@ int main(void) {
     }
 
     return 0;
+}
 
+// For polling 
+int main(void) {
+
+    configureClock();
+
+    gpioEnable(GPIO_PORT_A);
+    pinMode(PA6, GPIO_INPUT);
+    pinMode(PA9, GPIO_INPUT);
+
+    RCC->APB1ENR1 |= (1 << TIM2EN);
+    initTIM(TIM2);
+
+    int previous_state = (digitalRead(PA6) << 1) | digitalRead(PA9);
+    int encoder_count = 0;
+    uint32_t previous_time = getTime(TIM2);
+
+    while (1) {
+
+        int A = digitalRead(PA6);
+        int B = digitalRead(PA9);
+
+        int current_state = (A << 1) | B;
+
+        if (current_state != previous_state) {
+
+            if (previous_state == 0b00) {
+                if (current_state == 0b01)
+                    encoder_count++;
+                else if (current_state == 0b10)
+                    encoder_count--;
+            }
+
+            else if (previous_state == 0b01) {
+                if (current_state == 0b11)
+                    encoder_count++;
+                else if (current_state == 0b00)
+                    encoder_count--;
+            }
+
+            else if (previous_state == 0b11) {
+                if (current_state == 0b10)
+                    encoder_count++;
+                else if (current_state == 0b01)
+                    encoder_count--;
+            }
+
+            else if (previous_state == 0b10) {
+                if (current_state == 0b00)
+                    encoder_count++;
+                else if (current_state == 0b11)
+                    encoder_count--;
+            }
+
+            previous_state = current_state;
+        }
+        uint32_t current_time = getTime(TIM2);
+
+        if (current_time - previous_time >= 10000) {
+
+            printf("Count: %d\n", encoder_count);
+
+            encoder_count = 0;
+            previous_time = current_time;
+        }
+    }
 }
