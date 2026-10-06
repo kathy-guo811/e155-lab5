@@ -5,7 +5,7 @@
 #include "STM32L432KC_RCC.h"
 
 void initTIM(TIM_TypeDef * TIMx){
-  // Set prescaler to give 1 ms time base
+  // Set prescaler to give 0.1 ms time base
   uint32_t psc_div = (uint32_t) ((SystemCoreClock/1e4));
 
   // Set prescaler division factor
