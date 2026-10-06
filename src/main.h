@@ -14,6 +14,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #define LOW_SPEED_COUNT_THRESHOLD 10
-#define STOP_TIMEOUT_MS 2000
+#define STOP_TIMEOUT_MS 20000
 
 #endif // MAIN_H
